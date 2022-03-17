@@ -9,7 +9,7 @@ __pycache__/
 *.so
 
 # nodeJS
-# node_modules
+node_modules
 
 # Distribution / packaging
 .Python
