@@ -1,64 +1,3 @@
-// ================== gRPC Section ================== //
-
-// import grpc from "grpc"
-// import protoLoader from "@grpc/proto-loader"
-// import readline from "readline"
-
-// var grpc = require("@grpc/grpc-js")
-// var protoLoader = require("@grpc/proto-loader")
-// var readline = require("readline")
-
-// var rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// })
-
-// var proto = grpc.loadPackageDefinition(
-//   protoLoader.loadSync("proto/chat.proto", {
-//     keepCase: true,
-//     longs: String,
-//     enums: String,
-//     defaults: true,
-//     oneofs: true,
-//   })
-// )
-
-// const REMOTE_SERVER = "0.0.0.0:5001"
-
-// let username
-
-// //Create gRPC client
-// let client = new proto.grpc.ChatServer(
-//   REMOTE_SERVER,
-//   grpc.credentials.createInsecure()
-// )
-
-// //Start the stream between server and client
-// function startChat() {
-//   let channel = client.ChatStream({})
-
-//   channel.on("data", onData)
-
-//   rl.on("line", function (text) {
-//     client.SendNote({ name: username, message: text }, (res) => {})
-//   })
-// }
-
-// //When server send a message
-// function onData(msg) {
-//   if (msg.name == username) {
-//     return
-//   }
-//   console.log(`${msg.name}: ${msg.message}`)
-// }
-
-// //Ask user name than start the chat
-// rl.question("What's ur name? ", (answer) => {
-//   username = answer
-
-//   startChat()
-// })
-
 // ================== ml5 Section ================== //
 
 const isFlipped = true
@@ -70,6 +9,8 @@ let state = "waiting"
 let brain
 let newTextShow = " "
 let textShow = " "
+
+var socket
 
 function translateText() {
   if (poseLabel == "1") {
@@ -87,7 +28,8 @@ function translateText() {
   } else {
     newTextShow = " "
   }
-  // if (newTextShow != textSh ername, message: newTextShow }, (res) => {})
+  if (newTextShow != textShow) sendData(newTextShow)
+  // client.SendNote({ name: username, message: text }, (res) => {})
   textShow = newTextShow
 }
 
@@ -196,6 +138,11 @@ const camera = new Camera(videoElement, {
 })
 camera.start()
 
+function sendData(pose) {
+  console.log("Sending...", pose)
+  socket.emit("pose", pose)
+}
+
 function setup() {
   createCanvas(960, 480)
   videoImage = createGraphics(640, 360)
@@ -205,6 +152,31 @@ function setup() {
     task: "classification",
     debug: true,
   })
+
+  // ============= Socket ============= //
+  // Start a socket connection to the server
+  // Some day we would run this server somewhere else
+  socket = io.connect("http://localhost:3000")
+  // const io = require("socket.io-client");
+  // socket = io("http://localhost:3000", {
+  //   withCredentials: true,
+  //   extraHeaders: {
+  //     "my-custom-header": "abcd",
+  //   },
+  // })
+  // We make a named event called 'mouse' and write an
+  // anonymous callback function
+
+  // socket.on('mouse',
+  //   // When we receive data
+  //   function(data) {
+  //     console.log("Got: " + data.x + " " + data.y);
+  //     // Draw a blue circle
+  //     fill(0,0,255);
+  //     noStroke();
+  //     ellipse(data.x, data.y, 20, 20);
+  //   }
+  // );
 }
 
 function draw() {

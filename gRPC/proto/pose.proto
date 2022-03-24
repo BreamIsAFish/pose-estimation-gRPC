@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package pose;
+
+message Empty {}
+
+message Action {
+    string name = 1;
+}
+
+service ActionServer {
+    rpc ActionStream (Empty) returns (stream Action);
+    rpc SendAction (Action) returns (Empty);
+}
+
+// Action name
+// 1. left_hand_raised
+// 2. right_hand_raised
+// 3. tree
+// 4. warrior
+// 5. triangle
+// 6. x_pose
+// 7. squad
