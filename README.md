@@ -1,4 +1,4 @@
-# pose-estimation-gRPC (It's just a chat system right now...)
+# pose-estimation-gRPC (Pose estimation + Chat system using gRPC)
 
 ## How to use
 
@@ -11,17 +11,23 @@ npm install
 
 ### 2) Open 3 separate console
 
-console ที่ 1 เรียก 
-```node client```
- (javascript client)
+- console ที่ 1 เรียก 
+```node poseServer```
+ (middle server between js client and gRPC server)
  
-console ที่ 2 เรียก 
-```python gameServer.py```
+- console ที่ 2 เรียก 
+```python ./gRPC/gameServer.py```
  (python server)
  
-console ที่ 3 เรียก 
-```python gameClient.py```
+- console ที่ 3 เรียก 
+```python ./gRPC/gameClient.py```
  (python client)
+ 
+ 
+### 3) Run live server on vs-code (Draging the html file into the browser is not working.)
+
+#### 1. Install "live server" extension on vs-code
+#### 2. Click "Go Live" button on the bottom-right corner to start server.
  
 (Do not use "server.js". It's still have "some" bugs.)
 
