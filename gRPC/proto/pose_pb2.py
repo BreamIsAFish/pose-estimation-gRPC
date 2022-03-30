@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     name='pose.proto',
     package='pose',
     syntax='proto3',
-    serialized_pb=_b('\n\npose.proto\x12\x04pose\"\x07\n\x05\x45mpty\"%\n\x04Action\x12\x0c\n\x04name\x18\x01 \x01(\t2Z\n\nActionServer\x12\'\n\nActionStream\x12\x0b.pose.Empty\x1a\n.pose.Action\x01\x12#\n\x08SendAction\x12\n.pose.Action\x1a\x0b.pose.Emptyb\x06proto3')
+    serialized_pb=_b('\n\npose.proto\x12\x04pose\"\x07\n\x05\x45mpty\"\x16\n\x06\x41\x63tion\x12\x0c\n\x04name\x18\x01 \x01(\t2d\n\x0c\x41\x63tionServer\x12+\n\x0c\x41\x63tionStream\x12\x0b.pose.Empty\x1a\x0c.pose.Action0\x01\x12\'\n\nSendAction\x12\x0c.pose.Action\x1a\x0b.pose.Emptyb\x06proto3')
 )
 
 

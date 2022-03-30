@@ -121,7 +121,7 @@ io.sockets.on(
     socket.on("pose", function (data) {
       // Data comes in as whatever was sent, including objects
       console.log("Received: pose " + data)
-      poseName = data
+      // poseName = data
       console.log("Sending Note with message", data)
       // client.SendNote({ name: username, message: data }, (res) => {})
       client.ActionStream({ name: data }, (res) => {})
