@@ -1,16 +1,17 @@
 // ============= gRPC ============= //
 let grpc = require("grpc")
 var protoLoader = require("@grpc/proto-loader")
-var readline = require("readline")
+// var readline = require("readline")
 
 //Read terminal Lines
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
+// var rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// })
 
 var proto = grpc.loadPackageDefinition(
-  protoLoader.loadSync("./gRPC/proto/chat.proto", {
+  // protoLoader.loadSync("./gRPC/proto/chat.proto", {
+  protoLoader.loadSync("./gRPC/proto/pose.proto", {
     keepCase: true,
     longs: String,
     enums: String,
@@ -21,18 +22,20 @@ var proto = grpc.loadPackageDefinition(
 
 const REMOTE_SERVER = "0.0.0.0:5001"
 
-let username
-let poseName
+// let username
+// let poseName
 
 //Create gRPC client
-let client = new proto.grpc.ChatServer(
+// let client = new proto.grpc.ChatServer(
+let client = new proto.pose.ActionServer(
   REMOTE_SERVER,
   grpc.credentials.createInsecure()
 )
 
 //Start the stream between server and client
 function startChat() {
-  let channel = client.ChatStream({})
+  // let channel = client.ChatStream({})
+  let channel = client.ActionStream({})
 
   channel.on("data", onData)
 
@@ -44,18 +47,20 @@ function startChat() {
 
 //When server send a message
 function onData(msg) {
-  if (msg.name == username) {
-    return
-  }
-  console.log(`${msg.name}: ${msg.message}`)
+  // if (msg.name == username) {
+  //   return
+  // }
+  // console.log(`${msg.name}: ${msg.message}`)
+  console.log(`${msg.name}`)
 }
 
 //Ask user name than start the chat
-rl.question("What's ur name? ", (answer) => {
-  username = answer
+// rl.question("What's ur name? ", (answer) => {
+//   username = answer
 
-  startChat()
-})
+//   startChat()
+// })
+startChat()
 
 // ============= Server ============= //
 // Using express: http://expressjs.com/
@@ -89,7 +94,7 @@ function listen() {
 //   next()
 // })
 // app.use(express.static("sketch.js"))
-app.use(cors({ origin: "*" }))
+// app.use(cors({ origin: "*" }))
 
 // WebSocket Portion
 // WebSockets work with the HTTP server
@@ -118,7 +123,8 @@ io.sockets.on(
       console.log("Received: pose " + data)
       poseName = data
       console.log("Sending Note with message", data)
-      client.SendNote({ name: username, message: data }, (res) => {})
+      // client.SendNote({ name: username, message: data }, (res) => {})
+      client.ActionStream({ name: data }, (res) => {})
 
       // Send it to all other clients
       // socket.broadcast.emit("mouse", data)

@@ -3,19 +3,19 @@ from concurrent import futures
 import grpc
 import time
 
-import proto.pose_pb2 as pose
-import proto.pose_pb2_grpc as rpc
+import proto.chat_pb2 as chat
+import proto.chat_pb2_grpc as rpc
 
 
 # inheriting here from the protobuf rpc file which is generated
-class ActionServer(rpc.ActionServerServicer):
+class ChatServer(rpc.ChatServerServicer):
 
     def __init__(self):
         # List with all the chat history
-        self.actions = []
+        self.chats = []
 
     # The stream which will be used to send new messages to clients
-    def ActionStream(self, request_iterator, context):
+    def ChatStream(self, request_iterator, context):
         """
         This is a response-stream type call. This means the server can keep sending messages
         Every client opens this connection and waits for server to send new messages
@@ -28,12 +28,12 @@ class ActionServer(rpc.ActionServerServicer):
         # For every client a infinite loop starts (in gRPC's own managed thread)
         while True:
             # Check if there are any new messages
-            while len(self.actions) > lastindex:
-                n = self.actions[lastindex]
+            while len(self.chats) > lastindex:
+                n = self.chats[lastindex]
                 lastindex += 1
                 yield n
 
-    def SendAction(self, request: pose.Action, context):
+    def SendNote(self, request: chat.Note, context):
         """
         This method is called when a clients sends a Note to the server.
 
@@ -42,11 +42,11 @@ class ActionServer(rpc.ActionServerServicer):
         :return:
         """
         # this is only for the server console
-        print("Posting: {}".format(request.name))
+        print("[{}] {}".format(request.name, request.message))
         # Add it to the chat history
-        self.actions.append(request)
+        self.chats.append(request)
         # something needs to be returned required by protobuf language, we just return empty msg
-        return pose.Empty()
+        return chat.Empty()
 
 
 if __name__ == '__main__':
@@ -55,8 +55,8 @@ if __name__ == '__main__':
     # then no more clients able to connect to the server.
     server = grpc.server(futures.ThreadPoolExecutor(
         max_workers=10))  # create a gRPC server
-    rpc.add_ActionServerServicer_to_server(
-        ActionServer(), server)  # register the server to gRPC
+    rpc.add_ChatServerServicer_to_server(
+        ChatServer(), server)  # register the server to gRPC
     # gRPC basically manages all the threading and server responding logic, which is perfect!
     print('Starting server. Listening...')
     server.add_insecure_port('[::]:' + str(port))
