@@ -1,4 +1,5 @@
 import threading
+from threading import Timer
 
 import grpc
 
@@ -31,8 +32,8 @@ class Client:
         # this line will wait for new messages from the server!
         for action in self.conn.ActionStream(pose.Empty()):
             # debugging statement
-            if(self.username != action.name):
-                print("Posting: {}".format(action.name))
+            # if(self.username != action.name):
+            print("Posting: {}".format(action.name))
             # self.chat_list.insert(END, "[{}] {}\n".format(
             #     note.name, note.message))  # add the message to the UI
         print("\n\n\n")
@@ -42,6 +43,7 @@ class Client:
         This method is called when user enters something into the textbox
         """
         # message = self.entry_message.get()  # retrieve message from the UI
+        print("Sending...", message)
         if message is not '':
             n = pose.Action()  # create protobug message (called Note)
             # n.name = self.username  # set the username
@@ -65,7 +67,16 @@ if __name__ == '__main__':
     print(f'Welcome, typing something to test...')
     c = Client()
 
+    finishTiming = True
+
+    def printTest():
+        print("Still in it...\n")
+        finishTiming = True
+
     msg = ''
     while(True):
+        if(finishTiming is True):
+            finishTiming = False
+            Timer(2.0, printTest, ()).start()
         msg = input()
         c.send_message(msg)

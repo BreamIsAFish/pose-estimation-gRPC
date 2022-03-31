@@ -94,7 +94,7 @@ function listen() {
 //   next()
 // })
 // app.use(express.static("sketch.js"))
-// app.use(cors({ origin: "*" }))
+app.use(cors({ origin: "*" }))
 
 // WebSocket Portion
 // WebSockets work with the HTTP server
@@ -120,11 +120,13 @@ io.sockets.on(
     // When this user emits, client side: socket.emit('otherevent',some data);
     socket.on("pose", function (data) {
       // Data comes in as whatever was sent, including objects
-      console.log("Received: pose " + data)
+      // console.log("Received: pose " + data)
       // poseName = data
       console.log("Sending Note with message", data)
       // client.SendNote({ name: username, message: data }, (res) => {})
-      client.ActionStream({ name: data }, (res) => {})
+      client.ActionStream({ name: data }, (res) => {
+        console.log(res)
+      })
 
       // Send it to all other clients
       // socket.broadcast.emit("mouse", data)
