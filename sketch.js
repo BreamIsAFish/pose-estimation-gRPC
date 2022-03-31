@@ -28,7 +28,7 @@ function translateText() {
   } else {
     newTextShow = " "
   }
-  if (newTextShow != textShow) sendData(newTextShow)
+  if (newTextShow != textShow && newTextShow != " ") sendData(newTextShow)
   // client.SendNote({ name: username, message: text }, (res) => {})
   textShow = newTextShow
 }

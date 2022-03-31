@@ -124,9 +124,8 @@ io.sockets.on(
       // poseName = data
       console.log("Sending Note with message", data)
       // client.SendNote({ name: username, message: data }, (res) => {})
-      client.ActionStream({ name: data }, (res) => {
-        console.log(res)
-      })
+      client.SendAction({ name: data }, (res) => {})
+      console.log("Sent...", data)
 
       // Send it to all other clients
       // socket.broadcast.emit("mouse", data)

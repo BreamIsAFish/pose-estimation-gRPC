@@ -73,10 +73,15 @@ if __name__ == '__main__':
         print("Still in it...\n")
         finishTiming = True
 
+    # t = Timer(2.0, printTest, ())
+
     msg = ''
     while(True):
-        if(finishTiming is True):
-            finishTiming = False
-            Timer(2.0, printTest, ()).start()
+        # if(finishTiming is True):
+        #     finishTiming = False
+        #     t.start()
+        t = Timer(2.0, printTest, ())
+        t.start()
+        t.join()
         msg = input()
         c.send_message(msg)
