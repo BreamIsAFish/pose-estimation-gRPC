@@ -13,23 +13,32 @@ let textShow = " "
 var socket
 
 function translateText() {
-  if (poseLabel == "1") {
-    newTextShow = "Tree"
-  } else if (poseLabel == "2") {
-    newTextShow = "Triangle"
-  } else if (poseLabel == "3") {
-    newTextShow = "Worrior"
-  } else if (poseLabel == "4") {
-    newTextShow = "X-pose"
-  } else if (poseLabel == "5") {
-    newTextShow = "Squat"
-  } else if (poseLabel == "6") {
-    newTextShow = "Standing"
+  if (poseLabel == "A") {
+    newTextShow = "standing"
+  } else if (poseLabel == "B") {
+    newTextShow = "right_hand_raised"
+  } else if (poseLabel == "C") {
+    newTextShow = "left_hand_raised"
+  } else if (poseLabel == "D") {
+    newTextShow = "tree"
+  } else if (poseLabel == "E") {
+    newTextShow = "tree"
+  } else if (poseLabel == "F") {
+    newTextShow = "warrior"
+  } else if (poseLabel == "G") {
+    newTextShow = "warrior"
+  } else if (poseLabel == "H") {
+    newTextShow = "triangle"
+  } else if (poseLabel == "I") {
+    newTextShow = "triangle"
+  } else if (poseLabel == "J") {
+    newTextShow = "x_pose"
+  } else if (poseLabel == "K") {
+    newTextShow = "squad"
   } else {
     newTextShow = " "
   }
   if (newTextShow != textShow && newTextShow != " ") sendData(newTextShow)
-  // client.SendNote({ name: username, message: text }, (res) => {})
   textShow = newTextShow
 }
 
@@ -87,7 +96,7 @@ function gotResult(error, results) {
 // Load
 function trainCompleted() {
   brain.normalizeData()
-  brain.train({ epochs: 50 }, () => {
+  brain.train({ epochs: 100 }, () => {
     state = "waiting"
     brain.save()
   })
@@ -148,7 +157,7 @@ function setup() {
   videoImage = createGraphics(640, 360)
   brain = ml5.neuralNetwork({
     inputs: 68,
-    outputs: 6,
+    outputs: 11,
     task: "classification",
     debug: true,
   })
@@ -156,7 +165,12 @@ function setup() {
   // ============= Socket ============= //
   // Start a socket connection to the server
   // Some day we would run this server somewhere else
+  
+  
   socket = io.connect("http://localhost:3000")
+
+
+
   // const io = require("socket.io-client");
   // socket = io("http://localhost:3000", {
   //   withCredentials: true,

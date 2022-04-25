@@ -31,3 +31,20 @@ npm install
  
 (Do not use "server.js". It's still have "some" bugs.)
 
+
+Pose detection 
+    1. left_hand_raised
+    2. right_hand_raised
+    3. tree
+    4. warrior
+    5. triangle
+    6. x_pose
+    7. squad
+// Action name
+// 1. left_hand_raised
+// 2. right_hand_raised
+// 3. tree
+// 4. warrior
+// 5. triangle
+// 6. x_pose
+// 7. squad

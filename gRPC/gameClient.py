@@ -44,7 +44,7 @@ class Client:
         """
         # message = self.entry_message.get()  # retrieve message from the UI
         print("Sending...", message)
-        if message is not '':
+        if message != '':
             n = pose.Action()  # create protobug message (called Note)
             # n.name = self.username  # set the username
             n.name = message  # set the actual message of the note
