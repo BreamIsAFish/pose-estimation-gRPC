@@ -20,6 +20,6 @@ RUN pip install grpcio grpcio-tools google protobuf
 
 # RUN pip3 install --no-c.ache-dir -r requirements.txt
 
-EXPOSE 5002
+EXPOSE 5001
 
 ENTRYPOINT ["python3", "/gameClient.py"]

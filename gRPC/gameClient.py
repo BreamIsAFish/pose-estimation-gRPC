@@ -1,13 +1,13 @@
 import threading
-from threading import Timer
+# from threading import Timer
 
 import grpc
 
 import proto.pose_pb2 as pose
 import proto.pose_pb2_grpc as rpc
 
-# address = '0.0.0.0'
-address = '[::]'
+address = '0.0.0.0'
+# address = '[::]'
 # address = 'http://grpc-server'
 # address = 'http://host.docker.internal'
 port = 5001
@@ -32,13 +32,19 @@ class Client:
         when waiting for new messages
         """
         print("\n\n\n")
-        # this line will wait for new messages from the server!
-        for action in self.conn.ActionStream(pose.Empty()):
-            # debugging statement
-            # if(self.username != action.name):
-            print("Posting: {}".format(action.name))
-            # self.chat_list.insert(END, "[{}] {}\n".format(
-            #     note.name, note.message))  # add the message to the UI
+        while(True):
+            try:
+                # this line will wait for new messages from the server!
+                for action in self.conn.ActionStream(pose.Empty()):
+                    # debugging statement
+                    # if(self.username != action.name):
+                    print("Posting(game): {}".format(action.name))
+                    # self.chat_list.insert(END, "[{}] {}\n".format(
+                    #     note.name, note.message))  # add the message to the UI
+                break
+            except:
+                # print('BOOOOOOOM')
+                continue
         print("\n\n\n")
 
     def send_message(self, message):
@@ -46,7 +52,7 @@ class Client:
         This method is called when user enters something into the textbox
         """
         # message = self.entry_message.get()  # retrieve message from the UI
-        print("Sending...", message)
+        print("Sending(game)...", message)
         if message != '':
             n = pose.Action()  # create protobug message (called Note)
             # n.name = self.username  # set the username
