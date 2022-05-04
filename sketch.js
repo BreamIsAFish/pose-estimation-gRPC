@@ -165,11 +165,9 @@ function setup() {
   // ============= Socket ============= //
   // Start a socket connection to the server
   // Some day we would run this server somewhere else
-  
-  
-  socket = io.connect("http://localhost:3000")
 
-
+  // socket = io.connect("http://host.docker.internal:3000")
+  socket = io.connect("http://0.0.0.0:3000")
 
   // const io = require("socket.io-client");
   // socket = io("http://localhost:3000", {

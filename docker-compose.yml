@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+
+  # tuto-real-backend:
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/tuto-real-backend/Dockerfile
+  #   # image: backend:test
+  #   container_name: backend
+  #   environment:
+  #       - PORT=3333
+  #       - ZOOM_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6Im02MXRfSE1iUXZpWjlZLWhLSkFSMFEiLCJleHAiOjE2NDU1MzQzMTYsImlhdCI6MTY0NDkyOTUxNn0.lFpbXhFilf0CRSzUtYyeXA7dm5TMTNzfGd8Uzlc9Ri4
+  #       - API_KEY=m61t_HMbQviZ9Y-hKJAR0Q
+  #       - API_SECRET=SE2KsFwLl6wXSn13vD7MrkJrVClWROMbHX4z
+  #       - TZ=Asia/Bangkok
+  #       - JWT_EXPIRE=180s
+  #       - EMAIL_PASSWORD=mekmekmekmek123
+  #   ports:
+  #     - '3333:3333'
+  #   networks:
+  #     - private
+
+  app:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    # depends_on:
+    #   - grpc-server
+    #   - pose-server
+    container_name: app
+    # image: frontend:test
+    restart: always
+    ports:
+      - '4200:4200'
+      - '5001:5001'
+      - '3000:3000'
+    networks:
+      - private
+
+  # pose-server:
+  #   build: 
+  #     context: .
+  #     dockerfile: ./Dockerfile.poseServer
+  #   depends_on:
+  #     - grpc-server
+  #   container_name: pose-server
+  #   restart: always
+  #   ports:
+  #     # - '5000:5001'
+  #     - '3000:3000'
+  #   networks:
+  #     - private
+
+  # grpc-server:
+  #   build: 
+  #     context: .
+  #     dockerfile: ./gRPC/Dockerfile.gameServer
+  #   container_name: grpc-server
+  #   restart: always
+  #   ports:
+  #     - '5001:5001'
+  #   networks:
+  #     - private
+
+  # Just for testing 
+  # game-client:
+  #   build: 
+  #     context: .
+  #     dockerfile: ./gRPC/Dockerfile.gameClient
+  #   depends_on:
+  #     - grpc-server
+  #   container_name: game-client
+  #   restart: always
+  #   ports:
+  #     - '5002:5002'
+  #   networks:
+  #     - private
+
+networks:
+  private:
+    # external: true
+    name: private

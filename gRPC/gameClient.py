@@ -6,7 +6,10 @@ import grpc
 import proto.pose_pb2 as pose
 import proto.pose_pb2_grpc as rpc
 
-address = '0.0.0.0'
+# address = '0.0.0.0'
+address = '[::]'
+# address = 'http://grpc-server'
+# address = 'http://host.docker.internal'
 port = 5001
 
 
@@ -67,11 +70,11 @@ if __name__ == '__main__':
     print(f'Welcome, typing something to test...')
     c = Client()
 
-    finishTiming = True
+    # finishTiming = True
 
-    def printTest():
-        print("Still in it...\n")
-        finishTiming = True
+    # def printTest():
+    #     print("Still in it...\n")
+    #     finishTiming = True
 
     # t = Timer(2.0, printTest, ())
 
@@ -80,8 +83,12 @@ if __name__ == '__main__':
         # if(finishTiming is True):
         #     finishTiming = False
         #     t.start()
-        t = Timer(2.0, printTest, ())
-        t.start()
-        t.join()
-        msg = input()
-        c.send_message(msg)
+        # t = Timer(2.0, printTest, ())
+        # t.start()
+        # t.join()
+        try:
+            msg = input()
+            c.send_message(msg)
+        except:
+            # Not accepting inputs, only listening...')
+            continue

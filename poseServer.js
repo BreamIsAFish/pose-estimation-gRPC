@@ -20,6 +20,8 @@ var proto = grpc.loadPackageDefinition(
   })
 )
 
+// const REMOTE_SERVER = "http://grpc-server:5001"
+// const REMOTE_SERVER = "http://host.docker.internal:5001"
 const REMOTE_SERVER = "0.0.0.0:5001"
 
 // let username
@@ -71,10 +73,14 @@ var app = express()
 
 // Set up the server
 // process.env.PORT is related to deploying on heroku
-var server = app.listen(3000, listen)
+const PORT = 3000
+const HOST = "0.0.0.0"
+
+var server = app.listen(PORT, HOST, onListen)
+// var server = app.listen(3000, listen)
 
 // This call back just tells us that the server has started
-function listen() {
+function onListen() {
   var host = server.address().address
   var port = server.address().port
   console.log("Example app listening at http://" + host + ":" + port)
