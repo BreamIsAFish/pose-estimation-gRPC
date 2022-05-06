@@ -1,5 +1,5 @@
 # pose-estimation-gRPC (Pose estimation + communicate w/ python client using gRPC)
-
+![alt text](https://c.tenor.com/kmHEH_VM-y4AAAAC/spy-x-family-spy-family.gif)
 ## How to use (Recommend using *Option 2*)
 
 
@@ -67,6 +67,3 @@ You can open console in the **Docker Desktop** to view the prediction result and
     6. x_pose
     7. squad
     
-    
-    
-![alt text](https://c.tenor.com/kmHEH_VM-y4AAAAC/spy-x-family-spy-family.gif)
