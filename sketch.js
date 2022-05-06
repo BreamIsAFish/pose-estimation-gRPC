@@ -42,31 +42,41 @@ function translateText() {
   textShow = newTextShow
 }
 
-function keyPressed() {
-  if (key == "s") {
-    brain.saveData()
-  } else if (key == "t") {
-    state = "training"
-    brain.loadData("data.json", trainCompleted)
-  } else if (key == "p") {
-    const modelInfo = {
-      model: "model/model.json",
-      metadata: "model/model_meta.json",
-      weights: "model/model.weights.bin",
-    }
-    brain.load(modelInfo, classifyPose)
-  } else {
-    targetLabel = key
-    console.log(targetLabel)
-    setTimeout(function () {
-      console.log("collecting")
-      state = "collecting"
-      setTimeout(function () {
-        console.log("not collecting")
-        state = "waiting"
-      }, 15000)
-    }, 5000)
+// function keyPressed() {
+//   if (key == "s") {
+//     brain.saveData()
+//   } else if (key == "t") {
+//     state = "training"
+//     brain.loadData("data.json", trainCompleted)
+//   } else if (key == "p") {
+//     const modelInfo = {
+//       model: "model/model.json",
+//       metadata: "model/model_meta.json",
+//       weights: "model/model.weights.bin",
+//     }
+//     brain.load(modelInfo, classifyPose)
+//   } else {
+//     targetLabel = key
+//     console.log(targetLabel)
+//     setTimeout(function () {
+//       console.log("collecting")
+//       state = "collecting"
+//       setTimeout(function () {
+//         console.log("not collecting")
+//         state = "waiting"
+//       }, 15000)
+//     }, 5000)
+//   }
+// }
+
+function loadModel555() {
+  // console.log("load model ")
+  const modelInfo = {
+    model: "model/model.json",
+    metadata: "model/model_meta.json",
+    weights: "model/model.weights.bin",
   }
+  brain.load(modelInfo, classifyPose)
 }
 
 // Classificdation
@@ -162,6 +172,7 @@ function setup() {
     debug: true,
   })
 
+  setTimeout(loadModel555, 1000)
   // ============= Socket ============= //
   // Start a socket connection to the server
   // Some day we would run this server somewhere else
@@ -189,6 +200,9 @@ function setup() {
   //     ellipse(data.x, data.y, 20, 20);
   //   }
   // );
+  // button = createButton('Start Predict');
+  // button.position(0, 0);
+  // button.mousePressed(loadModel555);
 }
 
 function draw() {

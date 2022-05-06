@@ -50,8 +50,7 @@ npm install
 3.1) Go to your browser </br>
 3.2) Go to url ```localhost:4200``` </br>
 3.3) Allow browser to use your face cam </br>
-3.4) Click on the video section </br>
-3.5) Press ```P``` on your keyboard to start predicting </br>
+3.4) Let's dance!!! </br>
 (You can right click and press ```inspect``` to view the prediction result in the **console**)
 
 #### 4) Open game-client to receive the prediction result from pose-application
