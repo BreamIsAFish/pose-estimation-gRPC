@@ -66,19 +66,19 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
 
 # RUN npm install --target_platform=linux --target_arch=x64 --target_libc=glibc
 
-RUN pip install grpcio grpcio-tools google protobuf==3.20
+# RUN pip install grpcio grpcio-tools google protobuf==3.20
 
 # COPY --from=base /build/dist ./dist
 # COPY --from=base /build/apps ./apps
 # COPY --from=base /build/libs ./libs
 # COPY --from=base /build/tools ./tools
 
-COPY start_server.sh .
-RUN chmod +x start_server.sh
-RUN echo '\nnginx -g "daemon off;\n"' >> start_server.sh
+COPY start_production.sh .
+RUN chmod +x start_production.sh
+RUN echo '\nnginx -g "daemon off;\n"' >> start_production.sh
 
-RUN sed -i 's/\r$//' start_server.sh  && \
-  chmod +x start_server.sh
+RUN sed -i 's/\r$//' start_production.sh  && \
+  chmod +x start_production.sh
 
 # Expose nginx port
 EXPOSE 80
@@ -86,4 +86,4 @@ EXPOSE 80
 # # Run Start command
 ENTRYPOINT ["/docker-entrypoint.sh"]
 # CMD ["./node_modules/.bin/pm2", "serve", "./", "4200", "--spa"]
-CMD ["./start_server.sh"]
+CMD ["./start_production.sh"]

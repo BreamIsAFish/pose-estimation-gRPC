@@ -24,7 +24,7 @@ services:
   app:
     build: 
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.poseapp
     # depends_on:
     #   - grpc-server
     #   - pose-server
@@ -33,24 +33,24 @@ services:
     restart: always
     ports:
       - '4200:4200'
-      - '5001:5001'
-      - '3000:3000'
+      # - '5001:5001'
+      # - '3000:3000'
     networks:
       - private
 
-  # pose-server:
-  #   build: 
-  #     context: .
-  #     dockerfile: ./Dockerfile.poseServer
-  #   depends_on:
-  #     - grpc-server
-  #   container_name: pose-server
-  #   restart: always
-  #   ports:
-  #     # - '5000:5001'
-  #     - '3000:3000'
-  #   networks:
-  #     - private
+  server:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    # depends_on:
+    #   - grpc-server
+    container_name: server
+    restart: always
+    ports:
+      - '5000:5001'
+      - '3000:3000'
+    networks:
+      - private
 
   # grpc-server:
   #   build: 
@@ -81,3 +81,4 @@ networks:
   private:
     # external: true
     name: private
+    driver: bridge
